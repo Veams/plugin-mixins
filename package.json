@@ -1,7 +1,7 @@
 {
 	"name": "veams-plugin-mixins",
-	"version": "1.0.0",
-	"description": "VeamsMixins plugin.",
+	"version": "1.0.1",
+	"description": "The VeamsMixins plugin is something where you can save global mixins. Mixins are object with functions in it which can be used to extend methods in other classes/modules.",
 	"main": "lib/index.js",
 	"browserify": {
 		"transform": [
