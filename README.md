@@ -7,10 +7,10 @@ import Veams from 'veams';
 import VeamsMixins from 'veams/lib/plugins/mixins';
 
 // Intialize core of Veams
-Veams.initialize();
-
-// Add plugins to the Veams system
-Veams.use(VeamsMixins);
+Veams.onInitialize(() => {
+  // Add plugins to the Veams system
+  Veams.use(VeamsMixins);
+});
 ```
 
 _API:_
@@ -31,11 +31,11 @@ import VeamsMixins from 'veams/lib/plugins/mixins';
 import imageLoader from './utils/mixins/image-loader';
 
 // Intialize core of Veams
-Veams.initialize();
-
-// Add plugins to the Veams system
-Veams.use(VeamsMixins);
-Veams.addMixin('imageLoader', imageLoader);
+Veams.onInitialize(() => {
+  // Add plugins to the Veams system
+  Veams.use(VeamsMixins);
+  Veams.addMixin('imageLoader', imageLoader);
+});
 ```
 
 Later you can use this specific mixin in other modules:
