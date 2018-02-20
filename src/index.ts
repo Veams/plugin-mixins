@@ -1,5 +1,23 @@
 'use strict';
 
+
+/**
+ * Interfaces
+ */
+export interface MixinPlugin {
+	pluginName: string,
+	initialize: any
+}
+
+export interface Mixins {
+	[name: string]: any
+}
+
+export interface VeamsExtendedByMixin {
+	mixins: Mixins,
+	addMixin: any
+}
+
 /**
  * Represents a mixin plugin.
  * This plugin gives you the possibility to extend your methods in components as long as you provide Veams.helpers.mixin();
@@ -8,10 +26,9 @@
  *
  * @author Sebastian Fitzner
  */
-
-const VeamsMixins = {
+const VeamsMixins: MixinPlugin = {
 	pluginName: 'Mixins',
-	initialize: function (Veams) {
+	initialize: function (Veams): VeamsExtendedByMixin {
 		if (!Veams.mixins) {
 			Veams.mixins = {};
 		}
@@ -21,7 +38,7 @@ const VeamsMixins = {
 
 			if (params.length === 1) {
 				if (typeof params[0] !== 'object') {
-					console.error('VeamsMixins :: You need to pass an object!');
+					console.error('@veams/plugin-mixin :: You need to pass an object!');
 					return;
 				}
 
@@ -30,7 +47,7 @@ const VeamsMixins = {
 						if (!Veams.mixins[key]) {
 							Veams.mixins[key] = params[0][key](Veams);
 						} else {
-							console.info(`VeamsMixins :: It seems that you have already defined a mixin called ${key}!'`);
+							console.info(`@veams/plugin-mixin :: It seems that you have already defined a mixin called ${key}!'`);
 						}
 					}
 				}
@@ -38,15 +55,17 @@ const VeamsMixins = {
 
 				if (!Veams.mixins[params[0]]) {
 					if (typeof params[0] !== 'string' || typeof params[1] !== 'function') {
-						console.error('VeamsMixins :: You need to pass a string as first argument and the helper function as second one.');
+						console.error('@veams/plugin-mixin :: You need to pass a string as first argument and the helper function as second one.');
 						return;
 					}
 					Veams.mixins[params[0]] = params[1](Veams);
 				} else {
-					console.info(`VeamsMixins :: The mixin ${params[0]} is already defined! Please define a new name for: `, params[1]);
+					console.info(`@veams/plugin-mixin :: The mixin ${params[0]} is already defined! Please define a new name for: `, params[1]);
 				}
 			}
 		};
+
+		return Veams;
 	}
 };
 
